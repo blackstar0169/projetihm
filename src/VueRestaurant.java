@@ -1,24 +1,18 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class VueRestaurant{
+public class VueRestaurant extends JPanel{
 	
-	Table[] tables;
-	JPanel plan;
-
+	private Table[] tables;
   
   public VueRestaurant(Table[] t){
-		JFrame fenetre = new JFrame("Salut");		
-		JPanel plan = new JPanel();
 		GridBagConstraints c = new GridBagConstraints();
 		int cnt = 0;
 
 		this.tables = t;
 
-		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fenetre.setSize(200, 200);
-
-		plan.setLayout(new GridBagLayout());
+		
+		this.setLayout(new GridBagLayout());
 
 		c.weightx = 1;
 		c.weighty = 1;
@@ -30,7 +24,7 @@ public class VueRestaurant{
 				c.gridx = j;
 				c.gridy = i;
 				t[cnt].setMinimumSize(new Dimension(10,10));
-				plan.add(t[cnt], c);
+				this.add(t[cnt], c);
 				cnt++;
 			}
 		}
@@ -39,13 +33,11 @@ public class VueRestaurant{
 			for(int j=0; j<5; j++){
 				c.gridx = j;
 				c.gridy = i;
-				plan.add(t[cnt], c);
+				this.add(t[cnt], c);
 				cnt++;
 			}
 		}
 		
 		
-		fenetre.add(plan, BorderLayout.CENTER);
-		fenetre.setVisible(true);
 	}
 }
