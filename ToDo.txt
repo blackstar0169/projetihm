@@ -1,0 +1,23 @@
+Finaliser l'interface de réservation
+	- Ajout d'un bouton "nouveau client"
+	- Ajout d'un bouton 
+
+
+Commencer le controleur de la partie réservation
+	- Clique "nouveau client" > popup(nombrePersonnes, Valider, Annuler) > sélection des tables + bouton "Valider"/"Annuler"
+	- Clique case tableau > selection des tables + bouton "Valider"/"Annuler"
+	
+	Précisions : Si le nombre de tables est insufusant le bouton "Valider" reste désactivé. Quand ce nombre est sufusant on ne peut plus sélectionner de tables. On enregistrera le nombre de tables sélectionnées dans le controleur.
+	
+Faire la vue de paiement : 
+	- Page de login (mot de passe);
+	
+	- Page de paiement 
+		- Plan du resto
+		- Somme à payer
+		- Moyen de paiment
+		- Valider (activer uniquement après délection des tables, saisie d'un montant, sélection d'un moyen de paiement)
+
+	- Page de statistiques
+
+	Précision : Utilisation d'un CardLayout. Pour le changement de page on utilisera un système de bouton en haut de la fenetre. Dans ce menu il y aura 3 options : Statistique Paiment et Deconnection. 
