@@ -10,10 +10,12 @@ public class Table extends JComponent {
 
 	public int numero;
 	public byte statut;
-
-	public Table(int num, byte statut){
+	public int groupId;
+	
+	public Table(int num, byte statut, int gId){
 		this.numero = num;
 		this.statut = statut;
+		this.groupId = gId;
 	}
 
 	public void paintComponent(Graphics g){

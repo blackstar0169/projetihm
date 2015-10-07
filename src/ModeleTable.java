@@ -1,21 +1,21 @@
-import java.swing.*;
 
-public class TableModel{
+
+public class ModeleTable{
 													        
 	private int numero;
 	private byte statut;
 	private int groupId;
 	private byte nombrePersonnes;
 
-	public TablesModel(int n, byte s, int g, byte nbrP){
-		this.numero = n;
-		this.statut = s;
-		this.groupeId = g;
-		this.nombrePersonnes = nbrP;
+	public ModeleTable(/*int n, byte s, int g, byte nbrP*/){
+		this.numero = 1;
+		this.statut = 1;
+		this.groupId = 1;
+		this.nombrePersonnes = 1;
 	}
 
 	public void setGroupId(int id){
-		this.groupeId = id;
+		this.groupId = id;
 	}
 	public int getGroupId(){
 		return this.groupId;
@@ -35,20 +35,24 @@ public class TableModel{
 		return this.numero;
 	}
 
-	public void setNombrePersonnes(int n){
+	public void setNombrePersonnes(byte n){
 		this.nombrePersonnes = n;
 	}
 	public int getNombrePersonnes(){
 		return this.nombrePersonnes;
 	}
 
-	public TablesModel[] getAll(){
+	public Table[] getAll(){
+		Table[] res = new Table[30];
+		for(int i=0; i<30; i++){
+			res[i] = new Table(i, (byte)(i%2), i); 
+		}
 		return res;
 	}
-	public TablesModel findOrFail(){
+	/*public ModeleTable findOrFail(){
 
-		return res;
-	}
+		return ;
+	}*/
 
 }       
 
