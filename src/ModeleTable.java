@@ -44,8 +44,11 @@ public class ModeleTable{
 
 	public Table[] getAll(){
 		Table[] res = new Table[30];
+		int g=0;
 		for(int i=0; i<30; i++){
-			res[i] = new Table(i, (byte)(i%2), i); 
+			if(i%3==0)
+				g++;
+			res[i] = new Table(i, (byte)(i%3), g); 
 		}
 		return res;
 	}

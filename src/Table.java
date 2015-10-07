@@ -41,9 +41,17 @@ public class Table extends JComponent {
 	
 	public void setStatut(byte s){
 		this.statut = s;
+		repaint();
 	}
 	public byte getStatut(){
 		return this.statut;
+	}
+	
+	public void setGroupId(int id){
+		this.groupId = id;
+	}
+	public int getGroupId(){
+		return this.groupId;
 	}
 
 }

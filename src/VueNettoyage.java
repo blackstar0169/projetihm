@@ -2,18 +2,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.lang.IndexOutOfBoundsException;
 
-public class VueReservation extends JPanel{
+public class VueNettoyage extends JPanel{
 	
 	private Table[] tables;
-  
-  public VueReservation(Table[] t, Object[][] reservations){
-		JScrollPane tableau;
+
+	public VueNettoyage(){
+	}
+
+	public VueNettoyage(Table[] t){
 		GridBagConstraints c = new GridBagConstraints();
 		int cnt = 0;
-
 		this.tables = t;
 
-		
 		this.setLayout(new GridBagLayout());
 
 		c.weightx = 1;
@@ -21,8 +21,7 @@ public class VueReservation extends JPanel{
 		c.fill = GridBagConstraints.BOTH;
 		c.insets = new Insets(10,5,10,5);
 
-		// Affichage des tables
-		
+		// Affichage des tables		
 		for(int i=0; i<2; i++){
 			for(int j=0; j<10; j++){
 				c.insets = new Insets(10,5,10,5);
@@ -58,23 +57,13 @@ public class VueReservation extends JPanel{
 				cnt++;
 			}
 		}
+	}
 
-		// Affichage de la liste des réservations
-		String[] entetes = {"Nom", "Num Table"};
-		tableau = new JScrollPane(new JTable(reservations, entetes));
-		tableau.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		tableau.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		tableau.setPreferredSize(new Dimension(1,1));
-		
-		c.insets = new Insets(5, 0, 10, 5);
-		c.weightx = 0.5;
-		c.weighty = 0.5;		
-		c.gridx = 5;
-		c.gridy = 2;
-		c.gridwidth = 5;
-		c.gridheight = 4;
-		this.add(tableau, c); 
-		
-		
+	public void setTables(Table[] t){
+		this.tables = t;
+		repaint();
+	}
+	public Table[] getTables(){
+		return this.tables;
 	}
 }
