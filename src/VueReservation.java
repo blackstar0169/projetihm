@@ -1,20 +1,48 @@
 import javax.swing.*;
 import java.awt.*;
-import java.lang.IndexOutOfBoundsException;
 
 public class VueReservation extends JPanel{
 	
 	private Table[] tables;
+	private JTable tableau;
+	private JButton valider;
+	private JButton annuler;
+	private JButton option;
+	private JButton nouveauClient;
   
   public VueReservation(Table[] t, Object[][] reservations){
-		JScrollPane tableau;
+		JScrollPane scrollPane;
+		JPanel panneauMenu = new JPanel();
+		JPanel panneauPlan = new JPanel();
 		GridBagConstraints c = new GridBagConstraints();
 		int cnt = 0;
 
-		this.tables = t;
-
+		this.valider = new JButton("Valider");
+		this.annuler = new JButton("Annuler");
+		this.option = new JButton("Option");
+		this.nouveauClient = new JButton("Nouveau client");
 		
-		this.setLayout(new GridBagLayout());
+		
+		this.tables = t;		
+		this.setLayout(new BorderLayout());
+		panneauPlan.setLayout(new GridBagLayout());
+
+		//Création du menu
+		valider.setBackground(Color.GRAY);
+		valider.setEnabled(false);
+		annuler.setBackground(Color.GRAY);
+		annuler.setEnabled(false);
+		nouveauClient.setBackground(Color.BLUE);
+		nouveauClient.setForeground(Color.WHITE);
+		GridLayout layout = new GridLayout(1,4);
+		valider.setPreferredSize(new Dimension(600,100));
+		panneauMenu.setLayout(layout);
+		panneauMenu.add(nouveauClient);
+		panneauMenu.add(valider);
+		panneauMenu.add(annuler);
+		panneauMenu.add(option);
+		panneauMenu.setSize(600, 100);
+		this.add(panneauMenu, BorderLayout.SOUTH);
 
 		c.weightx = 1;
 		c.weighty = 1;
@@ -36,7 +64,7 @@ public class VueReservation extends JPanel{
 				c.gridx = j;
 				c.gridy = i;
 				t[cnt].setMinimumSize(new Dimension(10,10));
-				this.add(t[cnt], c);
+				panneauPlan.add(t[cnt], c);
 				cnt++;
 			}
 		}
@@ -54,17 +82,18 @@ public class VueReservation extends JPanel{
 
 				c.gridx = j;
 				c.gridy = i;
-				this.add(t[cnt], c);
+				panneauPlan.add(t[cnt], c);
 				cnt++;
 			}
 		}
 
 		// Affichage de la liste des réservations
 		String[] entetes = {"Nom", "Num Table"};
-		tableau = new JScrollPane(new JTable(reservations, entetes));
-		tableau.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		tableau.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		tableau.setPreferredSize(new Dimension(1,1));
+		this.tableau = new JTable(reservations, entetes);
+		scrollPane = new JScrollPane(this.tableau);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setPreferredSize(new Dimension(1,1));
 		
 		c.insets = new Insets(5, 0, 10, 5);
 		c.weightx = 0.5;
@@ -73,8 +102,9 @@ public class VueReservation extends JPanel{
 		c.gridy = 2;
 		c.gridwidth = 5;
 		c.gridheight = 4;
-		this.add(tableau, c); 
 		
+		panneauPlan.add(scrollPane, c); 
+		this.add(panneauPlan, BorderLayout.CENTER);
 		
 	}
 }
