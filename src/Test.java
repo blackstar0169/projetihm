@@ -1,8 +1,8 @@
-/* 
+/*
 
 3 applications différentes :
 
-Réservation: 
+Réservation:
 - Affiche les tables dispo/non-dispo ainsi que la liste des réservation à placées
 
 Nettoyage:
@@ -11,7 +11,7 @@ Nettoyage:
 Paiement:
 - Affiche l'interface de paiment aisin que les statistiques
 
- 
+
 */
 
 import javax.swing.*;
@@ -23,37 +23,16 @@ public class Test{
 	final static String PAIEMENT = "Paiement";
 
 	public static void main(String[] args){
-	
+                float[] tab = {20, 35, 52, 25};
 
-		JFrame fenetre = new JFrame("Meal Manager");		
-		CardLayout card = new CardLayout();
+		JFrame fenetre = new JFrame("Meal Manager");
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fenetre.setSize(200, 200);
-		
+		fenetre.setSize(600, 600);
+
 		//Appel des vues
-		VueReservation resView = new VueReservation();
-		VueNettoyage washView = new VueNettoyage();
-		VuePaiement payView = new VuePaiement();
-		
-		//Appel des models
+		Histogramme graph = new Histogramme(5, 5, "Temps", "% tables occupées", tab, 4);
 
-		//Appel des controleurs
-		
-		
-		Table[] t = new Table[30];
-		for(int i=0; i<30; i++){
-			t[i] = new Table(i, (byte)(i%2)); 
-		}
-		vue = new VueRestaurant(t);
-
-
-		card.add(resView, Test.RESERVATION);
-		card.add(washView, Test.NETTOYAGE);
-		card.add(View, Test.NETTOYAGE);
-		
-		fenetre.add(card, BorderLayout.CENTER);
+		fenetre.add(graph, BorderLayout.CENTER);
 		fenetre.setVisible(true);
-
-
 	}
 }

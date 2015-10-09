@@ -2,14 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VueReservation extends JPanel{
-	
+
 	private Table[] tables;
 	private JTable tableau;
 	private JButton valider;
 	private JButton annuler;
 	private JButton option;
 	private JButton nouveauClient;
-  
+
   public VueReservation(Table[] t, Object[][] reservations){
 		JScrollPane scrollPane;
 		JPanel panneauMenu = new JPanel();
@@ -21,9 +21,9 @@ public class VueReservation extends JPanel{
 		this.annuler = new JButton("Annuler");
 		this.option = new JButton("Option");
 		this.nouveauClient = new JButton("Nouveau client");
-		
-		
-		this.tables = t;		
+
+
+		this.tables = t;
 		this.setLayout(new BorderLayout());
 		panneauPlan.setLayout(new GridBagLayout());
 
@@ -50,11 +50,11 @@ public class VueReservation extends JPanel{
 		c.insets = new Insets(10,5,10,5);
 
 		// Affichage des tables
-		
+
 		for(int i=0; i<2; i++){
 			for(int j=0; j<10; j++){
 				c.insets = new Insets(10,5,10,5);
-				try{	
+				try{
 					if(t[cnt].getGroupId() == t[cnt+1].getGroupId()){
 						c.insets = new Insets(10, 5, 10, 0);
 					}else if(t[cnt-1].getGroupId() == t[cnt].getGroupId()){
@@ -68,11 +68,11 @@ public class VueReservation extends JPanel{
 				cnt++;
 			}
 		}
-		
+
 		for(int i=2; i<4; i++){
 			for(int j=0; j<5; j++){
 				c.insets = new Insets(10,5,10,5);
-				try{	
+				try{
 					if(t[cnt].getGroupId() == t[cnt+1].getGroupId()){
 						c.insets = new Insets(10, 5, 10, 0);
 					}else if(t[cnt-1].getGroupId() == t[cnt].getGroupId()){
@@ -94,17 +94,17 @@ public class VueReservation extends JPanel{
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setPreferredSize(new Dimension(1,1));
-		
-		c.insets = new Insets(5, 0, 10, 5);
+
+		c.insets = new Insets(10, 5, 10, 5);
 		c.weightx = 0.5;
-		c.weighty = 0.5;		
+		c.weighty = 0.5;
 		c.gridx = 5;
 		c.gridy = 2;
 		c.gridwidth = 5;
 		c.gridheight = 4;
-		
-		panneauPlan.add(scrollPane, c); 
+
+		panneauPlan.add(scrollPane, c);
 		this.add(panneauPlan, BorderLayout.CENTER);
-		
+
 	}
 }
