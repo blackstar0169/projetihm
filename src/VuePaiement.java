@@ -31,7 +31,9 @@ public class VuePaiement extends JPanel{
 
         this.valider = new JButton("Valider");
         this.statButton = new JButton("Satistiques");
+        this.statButton.setName("statTab");
         this.payButton = new JButton("Paiement");
+        this.payButton.setName("payTab");
         this.annuler = new JButton("Annuler");
         this.option = new JButton("Option");
 
@@ -175,4 +177,9 @@ public class VuePaiement extends JPanel{
 
     }
 
+    public void addActionController(ControleurPaiement ctrl){
+        this.payButton.addActionListener(ctrl);
+        this.statButton.addActionListener(ctrl);
+        this.option.addActionListener(ctrl);
+    }
 }

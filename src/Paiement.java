@@ -35,8 +35,10 @@ public class Paiement{
                 panneauPrincipal.add(payView, "paiement");
                 cartes.first(panneauPrincipal);
 
-                ctrl = new ControleurPaiement(panneauPrincipal, cartes, logView.getLoginTextField(), logView.getLoginLabel());
+                ctrl = new ControleurPaiement(panneauPrincipal, cartes, logView.getComponents(), payView.getComponents(), statView.getComponents());
                 logView.getLoginButton().addActionListener(ctrl);
+                payView.addActionController(ctrl);
+                statView.addActionController(ctrl);
 
                 fenetre.add(panneauPrincipal, BorderLayout.CENTER);
 		fenetre.setVisible(true);

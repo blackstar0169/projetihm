@@ -23,6 +23,7 @@ public class VueLogin extends JPanel{
 
         loginLabel.setPreferredSize(new Dimension(250,30));
         loginLabel.setForeground(Color.RED);
+        loginLabel.setName("loginLabel");
         mdpLabel.setPreferredSize(new Dimension(150,30));
 
 
