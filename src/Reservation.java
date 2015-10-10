@@ -2,16 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Reservation{
-	
+
 	public static void main(String[] args){
 		VueReservation view;
 		ModeleTable tables;
 
-		JFrame fenetre = new JFrame("Meal Manager");	
+		JFrame fenetre = new JFrame("Meal Manager");
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setSize(800, 600);
 		fenetre.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		
+
 		// On charge les model
 		tables = new ModeleTable();
 		//reservation = new ModeleReservation();
@@ -23,12 +23,14 @@ public class Reservation{
 			{"TARTARE", 2},
 			{"DUCLOUX", 86}
 		};
+                Tables[]=tables.getAll();
 
-		// On charge la vue 
+		// On charge la vue
 		view = new VueReservation(tables.getAll(), reservation);
 
 		// On charge le controleur
-		// ctrl = new ControleurReservation();
+                ctrl=new ControleurReservation(tables, t, reservation);
+		tableCtrl = new ControleurTables(tables, t, ctrl);
 
 		fenetre.add(view, BorderLayout.CENTER);
 		fenetre.setVisible(true);

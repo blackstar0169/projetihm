@@ -4,7 +4,7 @@ import javax.swing.*;
 public class VueLogin extends JPanel{
     private JLabel loginLabel;
     private JButton loginButton;
-    private JTextField loginTextField;
+    private JPasswordField password;
 
     public VueLogin(){
         this.setLayout(new GridBagLayout());
@@ -12,14 +12,14 @@ public class VueLogin extends JPanel{
 
         GridBagConstraints c = new GridBagConstraints();
         this.loginButton = new JButton("Se connecter");
-        this.loginTextField = new JTextField();
-        this.loginLabel = new JLabel("dsqdsqdsq", SwingConstants.CENTER);
+        this.password = new JPasswordField();
+        this.loginLabel = new JLabel("", SwingConstants.CENTER);
         JLabel mdpLabel = new JLabel("Mot de passe :", SwingConstants.RIGHT);
 
         loginButton.setPreferredSize(new Dimension(150, 30));
         loginButton.setName("loginButton");
-        loginTextField.setPreferredSize(new Dimension(300, 30));
-        loginTextField.setName("loginTextField");
+        password.setPreferredSize(new Dimension(300, 30));
+        password.setName("password");
 
         loginLabel.setPreferredSize(new Dimension(250,30));
         loginLabel.setForeground(Color.RED);
@@ -48,7 +48,7 @@ public class VueLogin extends JPanel{
         c.fill=GridBagConstraints.HORIZONTAL;
         c.insets= new Insets(0,10,0,10);
         c.anchor=GridBagConstraints.PAGE_START;
-        this.add(loginTextField, c);
+        this.add(password, c);
 
         c.gridx=2;
         c.gridy=1;
@@ -59,16 +59,7 @@ public class VueLogin extends JPanel{
         this.add(loginButton, c);
 
     }
-    public JTextField getLoginTextField(){
-        return this.loginTextField;
-    }
-
     public JButton getLoginButton(){
         return this.loginButton;
     }
-
-    public JLabel getLoginLabel(){
-        return this.loginLabel;
-    }
-
 }

@@ -3,18 +3,23 @@ import javax.swing.*;
 
 public class VueStatistiques extends JPanel{
     Histogramme graph;
-    JComboBox service;
+    /*
+     *<string> pour eliminer les warning.
+     *Car comme Java (et Oracle en général) c'est de la merde, cette classe utilise du code générique qui produit des warnings
+     */
+    JComboBox<String> service;
     JTextField date;
     JLabel chiffreAffaire;
-    ButtonGroup groupRadio;
     JButton payButton;
-    JButton statButton;
     JButton option;
-    JButton annuler;
+    JButton sortButton;
+    JRadioButton sortService;
+    JRadioButton sortDate;
 
     public VueStatistiques(){
         this.setLayout(new BorderLayout());
 
+        JPanel panneauMenu = new JPanel();
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
 
@@ -22,34 +27,38 @@ public class VueStatistiques extends JPanel{
         this.graph = new Histogramme(7,7, "%age tables occupées", "Date", stats, 4);
 
         String[] strServices = new String[]{"Midi", "Soir"};
-        this.service = new JComboBox(strServices);
+        this.service = new JComboBox<>(strServices);
 
-        JRadioButton sortService = new JRadioButton("Service");
-        JRadioButton sortDate = new JRadioButton("Date");
+        this.sortService = new JRadioButton("Service");
+        this.sortService.setName("service");
+        this.sortDate = new JRadioButton("Date");
+        this.sortDate.setName("date");
+
         this.date = new JTextField();
-        this.chiffreAffaire = new JLabel();
+        this.chiffreAffaire = new JLabel("Pas de chiffre d'affaire");
         JLabel dateLabel = new JLabel("Date");
-        JLabel sortLabel = new JLabel("Afficher le chiffre d'affaire par :");
+        JLabel sortLabel = new JLabel("Afficher en fonction de :");
         JLabel serviceLabel = new JLabel("Service");
-        this.groupRadio = new ButtonGroup();
+        ButtonGroup groupRadio = new ButtonGroup();
         GridBagConstraints c = new GridBagConstraints();
 
-        this.statButton = new JButton("Satistiques");
-        this.statButton.setName("statTab");
-        this.payButton = new JButton("Paiement");
-        this.payButton.setName("payTab");
-        this.annuler = new JButton("Annuler");
-        this.option = new JButton("Option");
+
+        this.sortButton = new JButton("Trier");
+        this.sortButton.setName("sortButton");
 
 
         groupRadio.add(sortService);
         groupRadio.add(sortDate);
 
         //Menu
-        JPanel panneauMenu = new JPanel();
+        JButton statButton = new JButton("Satistiques");
+        this.payButton = new JButton("Paiement");
+        this.payButton.setName("payTab");
+        this.option = new JButton("Option");
+        this.option.setName("option");
         panneauMenu.setLayout(new GridLayout(1,4));
         option.setPreferredSize(new Dimension(600,50));
-        payButton.setEnabled(false);
+        statButton.setEnabled(false);
         panneauMenu.add(payButton);
         panneauMenu.add(statButton);
         panneauMenu.add(option);
@@ -60,24 +69,55 @@ public class VueStatistiques extends JPanel{
         //Mise en page
         c.gridy=0;
         c.gridx=0;
+        c.weightx=0.3;
+        c.weighty=1;
+        c.insets = new Insets(10,0,0,10);
+        c.fill=GridBagConstraints.NONE;
+        c.anchor=GridBagConstraints.LINE_END;
+        dateLabel.setPreferredSize(new Dimension(50, 25));
         mainPanel.add(dateLabel,c);
         c.gridx=1;
+        c.anchor=GridBagConstraints.CENTER;
+        date.setPreferredSize(new Dimension(100, 25));
         mainPanel.add(date, c);
         c.gridy=1;
         c.gridx=0;
+        c.anchor=GridBagConstraints.FIRST_LINE_END;
         mainPanel.add(serviceLabel, c);
         c.gridx=1;
+        c.anchor=GridBagConstraints.PAGE_START;
         mainPanel.add(service, c);
         c.gridy=2;
         c.gridx=0;
+        c.anchor=GridBagConstraints.FIRST_LINE_END;
         mainPanel.add(sortLabel, c);
         c.gridx=1;
+        c.anchor=GridBagConstraints.PAGE_START;
         mainPanel.add(sortDate, c);
         c.gridx=2;
+        c.anchor=GridBagConstraints.PAGE_START;
         mainPanel.add(sortService, c);
+        c.gridy=3;
+        c.gridx=0;
+        c.gridwidth=3;
+        mainPanel.add(chiffreAffaire, c);
+        c.gridy=4;
+        c.fill=GridBagConstraints.HORIZONTAL;
+        c.anchor=GridBagConstraints.PAGE_START;
+        mainPanel.add(sortButton, c);
+
         c.gridy=0;
         c.gridx=3;
+        c.gridwidth=10;
+        c.gridheight=3;
+        c.weightx=5;
+        c.gridheight=4;
+        c.insets = new Insets(10,10,10,10);
+
+        graph.setPreferredSize(new Dimension(1,1));
+        c.fill=GridBagConstraints.BOTH;
         mainPanel.add(graph, c);
+
 
         this.add(mainPanel, BorderLayout.CENTER);
 
@@ -85,7 +125,7 @@ public class VueStatistiques extends JPanel{
 
     public void addActionController(ControleurPaiement ctrl){
         this.payButton.addActionListener(ctrl);
-        this.statButton.addActionListener(ctrl);
         this.option.addActionListener(ctrl);
+        this.sortButton.addActionListener(ctrl);
     }
 }

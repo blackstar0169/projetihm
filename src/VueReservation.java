@@ -52,40 +52,45 @@ public class VueReservation extends JPanel{
 		// Affichage des tables
 
 		for(int i=0; i<2; i++){
-			for(int j=0; j<10; j++){
-				c.insets = new Insets(10,5,10,5);
-				try{
-					if(t[cnt].getGroupId() == t[cnt+1].getGroupId()){
-						c.insets = new Insets(10, 5, 10, 0);
-					}else if(t[cnt-1].getGroupId() == t[cnt].getGroupId()){
-						c.insets = new Insets(10, 0, 10, 5);
-					}
-				}catch(IndexOutOfBoundsException e){}
-				c.gridx = j;
-				c.gridy = i;
-				t[cnt].setMinimumSize(new Dimension(10,10));
-				panneauPlan.add(t[cnt], c);
-				cnt++;
-			}
-		}
+                    for(int j=0; j<10; j++){
+                        rightPad = leftPad = 5;
+                        try{
+                            if(t[cnt].getGroupId() == t[cnt+1].getGroupId()){
+                               rightPad=0;
+                            }
+                        }catch(IndexOutOfBoundsException e){}
 
-		for(int i=2; i<4; i++){
-			for(int j=0; j<5; j++){
-				c.insets = new Insets(10,5,10,5);
-				try{
-					if(t[cnt].getGroupId() == t[cnt+1].getGroupId()){
-						c.insets = new Insets(10, 5, 10, 0);
-					}else if(t[cnt-1].getGroupId() == t[cnt].getGroupId()){
-						c.insets = new Insets(10, 0, 10, 5);
-					}
-				}catch(IndexOutOfBoundsException e){}
+                        try{
+                            if(t[cnt-1].getGroupId() == t[cnt].getGroupId()){
+                                leftPad=0;
+                            }
+                        }catch(IndexOutOfBoundsException e){}
+                        c.insets = new Insets(10, leftPad, 10, rightPad);
+                        c.gridx = j;
+                        c.gridy = i;
+                        t[cnt].setMinimumSize(new Dimension(10,10));
+                        this.add(t[cnt], c);
+                        cnt++;
+                    }
+                }
 
-				c.gridx = j;
-				c.gridy = i;
-				panneauPlan.add(t[cnt], c);
-				cnt++;
-			}
-		}
+                for(int i=2; i<4; i++){
+                    for(int j=0; j<5; j++){
+                        c.insets = new Insets(10,5,10,5);
+                        try{
+                            if(t[cnt].getGroupId() == t[cnt+1].getGroupId()){
+                                c.insets = new Insets(10, 5, 10, 0);
+                            }else if(t[cnt-1].getGroupId() == t[cnt].getGroupId()){
+                                c.insets = new Insets(10, 0, 10, 5);
+                            }
+                        }catch(IndexOutOfBoundsException e){}
+
+                        c.gridx = j;
+                        c.gridy = i;
+                        this.add(t[cnt], c);
+                        cnt++;
+                    }
+                }
 
 		// Affichage de la liste des réservations
 		String[] entetes = {"Nom", "Num Table"};

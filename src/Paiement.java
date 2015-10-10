@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 public class Paiement{
 
@@ -8,6 +9,7 @@ public class Paiement{
                 VueStatistiques statView;
                 VuePaiement payView;
                 ControleurPaiement ctrl;
+                ControleurTables tableCtrl;
 		ModeleTable tables;
 
 		JFrame fenetre = new JFrame("Payday Manager");
@@ -21,24 +23,28 @@ public class Paiement{
 
 		// On charge les model
 		tables = new ModeleTable();
+                Table[] t=tables.getAll();
                 //login = new ModeleLogin()
 
 		// On charge la vue
 		logView = new VueLogin();
                 statView = new VueStatistiques();
-                payView = new VuePaiement(tables.getAll());
-
-		// On charge le controleur
+                payView = new VuePaiement(t);
 
                 panneauPrincipal.add(logView, "login");
                 panneauPrincipal.add(statView, "statistiques");
                 panneauPrincipal.add(payView, "paiement");
                 cartes.first(panneauPrincipal);
+                //Chargement du controleur
+                ctrl = new ControleurPaiement(panneauPrincipal, cartes, t, logView.getComponents(), payView.getPayComponents(), statView.getComponents());
+                tableCtrl = new ControleurTables(tables, t, ctrl);
+                tableCtrl.setMode(ControleurTables.PAIEMENT);
 
-                ctrl = new ControleurPaiement(panneauPrincipal, cartes, logView.getComponents(), payView.getComponents(), statView.getComponents());
                 logView.getLoginButton().addActionListener(ctrl);
                 payView.addActionController(ctrl);
                 statView.addActionController(ctrl);
+
+                payView.addMouseController(tableCtrl);
 
                 fenetre.add(panneauPrincipal, BorderLayout.CENTER);
 		fenetre.setVisible(true);

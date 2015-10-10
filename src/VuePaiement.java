@@ -9,33 +9,42 @@ public class VuePaiement extends JPanel{
     private JButton annuler;
     private JButton option;
     private JButton statButton;
-    private JButton payButton;
+    private JRadioButton especes;
+    private JRadioButton cheque;
+    private JRadioButton cb;
+    private JPanel panneauPaiement;
 
     public VuePaiement(Table[] t){
-        JPanel panneauPaiement = new JPanel();
+        this.panneauPaiement = new JPanel();
         JPanel panneauMenu = new JPanel();
         JPanel panneauPlan = new JPanel();
         GridBagConstraints c = new GridBagConstraints();
-        int cnt = 0;
+        int cnt = 0, leftPad, rightPad;
 
         JLabel paiementLabel = new JLabel("Somme à payer", SwingConstants.RIGHT);
         JLabel deviseLabel = new JLabel("€");
 
         this.paiementTextField = new JTextField();
+        this.paiementTextField.setName("payTextField");
 
-        JRadioButton especes = new JRadioButton("Especes");
-        JRadioButton cb = new JRadioButton("CB");
-        JRadioButton cheque = new JRadioButton("Chèque");
+        this.especes = new JRadioButton("Especes");
+        this.especes.setName("especes");
+        this.cb = new JRadioButton("CB");
+        this.cb.setName("cb");
+        this.cheque = new JRadioButton("Chèque");
+        this.cheque.setName("cheque");
 
         this.groupRadio = new ButtonGroup();
 
         this.valider = new JButton("Valider");
+        this.valider.setName("valider");
         this.statButton = new JButton("Satistiques");
         this.statButton.setName("statTab");
-        this.payButton = new JButton("Paiement");
-        this.payButton.setName("payTab");
+        JButton payButton = new JButton("Paiement");
         this.annuler = new JButton("Annuler");
+        this.annuler.setName("annuler");
         this.option = new JButton("Option");
+        this.option.setName("option");
 
         this.tables = t;
         this.setLayout(new BorderLayout());
@@ -67,14 +76,19 @@ public class VuePaiement extends JPanel{
 
         for(int i=0; i<2; i++){
             for(int j=0; j<10; j++){
-                c.insets = new Insets(10,5,10,5);
+                rightPad = leftPad = 5;
                 try{
                     if(t[cnt].getGroupId() == t[cnt+1].getGroupId()){
-                        c.insets = new Insets(10, 5, 10, 0);
-                    }else if(t[cnt-1].getGroupId() == t[cnt].getGroupId()){
-                        c.insets = new Insets(10, 0, 10, 5);
-               }
+                       rightPad=0;
+                    }
                 }catch(IndexOutOfBoundsException e){}
+
+                try{
+                    if(t[cnt-1].getGroupId() == t[cnt].getGroupId()){
+                        leftPad=0;
+                    }
+                }catch(IndexOutOfBoundsException e){}
+                c.insets = new Insets(10, leftPad, 10, rightPad);
                 c.gridx = j;
                 c.gridy = i;
                 t[cnt].setMinimumSize(new Dimension(10,10));
@@ -178,8 +192,25 @@ public class VuePaiement extends JPanel{
     }
 
     public void addActionController(ControleurPaiement ctrl){
-        this.payButton.addActionListener(ctrl);
+        this.valider.addActionListener(ctrl);
+        this.annuler.addActionListener(ctrl);
         this.statButton.addActionListener(ctrl);
         this.option.addActionListener(ctrl);
     }
+    public void addMouseController(ControleurTables ctrl){
+        for(int i=0; i<this.tables.length; i++){
+            this.tables[i].addMouseListener(ctrl);
+        }
+    }
+    public Table[] getTables(){
+        return this.tables;
+    }
+    public void setTables(Table[] t){
+        this.tables=t;
+    }
+
+    public Component[] getPayComponents(){
+        return this.panneauPaiement.getComponents();
+    }
+
 }

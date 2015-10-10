@@ -33,7 +33,7 @@ public class Histogramme extends JPanel{
         y[2] = y[1];
 
         g.drawPolyline(x, y, 3);
-        g.drawString(this.xLabel, x[2]-this.xLabel.length()*6, y[1]+14);
+        g.drawString(this.xLabel, x[2]-this.xLabel.length()*7, y[1]+14);
         g.drawString(this.yLabel, 5, 12);
 
         //Tracage du graph
