@@ -10,10 +10,14 @@ public class VueNettoyage extends JPanel{
 	}
 
 	public VueNettoyage(Table[] t){
+            this.tables = t;
+            init();
+        }
+
+        public void init(){
+            removeAll();
             GridBagConstraints c = new GridBagConstraints();
             int cnt = 0, rightPad, leftPad;
-            this.tables = t;
-
             this.setLayout(new GridBagLayout());
 
             c.weightx = 1;
@@ -26,21 +30,21 @@ public class VueNettoyage extends JPanel{
                 for(int j=0; j<10; j++){
                     rightPad = leftPad = 5;
                     try{
-                        if(t[cnt].getGroupId() == t[cnt+1].getGroupId() && t[cnt].getGroupId()!=-1){
+                        if(tables[cnt].getGroupId() == tables[cnt+1].getGroupId() && tables[cnt].getGroupId()!=-1){
                            rightPad=0;
                         }
                     }catch(IndexOutOfBoundsException e){}
 
                     try{
-                        if(t[cnt-1].getGroupId() == t[cnt].getGroupId() && t[cnt].getGroupId()!=-1){
+                        if(tables[cnt-1].getGroupId() == tables[cnt].getGroupId() && tables[cnt].getGroupId()!=-1){
                             leftPad=0;
                         }
                     }catch(IndexOutOfBoundsException e){}
                     c.insets = new Insets(10, leftPad, 10, rightPad);
                     c.gridx = j;
                     c.gridy = i;
-                    t[cnt].setMinimumSize(new Dimension(10,10));
-                    this.add(t[cnt], c);
+                    tables[cnt].setMinimumSize(new Dimension(10,10));
+                    this.add(tables[cnt], c);
                     cnt++;
                 }
             }
@@ -49,19 +53,21 @@ public class VueNettoyage extends JPanel{
                 for(int j=0; j<5; j++){
                     c.insets = new Insets(10,5,10,5);
                     try{
-                        if(t[cnt].getGroupId() == t[cnt+1].getGroupId()){
+                        if(tables[cnt].getGroupId() == tables[cnt+1].getGroupId() && tables[cnt].getGroupId()!=-1){
                             c.insets = new Insets(10, 5, 10, 0);
-                        }else if(t[cnt-1].getGroupId() == t[cnt].getGroupId()){
+                        }else if(tables[cnt-1].getGroupId() == tables[cnt].getGroupId() && tables[cnt].getGroupId()!=-1){
                             c.insets = new Insets(10, 0, 10, 5);
                         }
                     }catch(IndexOutOfBoundsException e){}
 
                     c.gridx = j;
                     c.gridy = i;
-                    this.add(t[cnt], c);
+                    this.add(tables[cnt], c);
                     cnt++;
                 }
             }
+            revalidate();
+            repaint();
 	}
 
 	public void setTables(Table[] t){

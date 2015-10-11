@@ -1,7 +1,7 @@
 
 
 public class ModeleTable{
-													        
+
 	private int numero;
 	private byte statut;
 	private int groupId;
@@ -20,7 +20,7 @@ public class ModeleTable{
 	public int getGroupId(){
 		return this.groupId;
 	}
-																														                
+
 	public void setStatut(byte s){
 		this.statut = s;
 	}
@@ -48,7 +48,7 @@ public class ModeleTable{
 		for(int i=0; i<30; i++){
 			if(i%3==0)
 				g++;
-			res[i] = new Table(i, (byte)(i%3), g); 
+			res[i] = new Table(i, Table.LIBRE, g);
 		}
 		return res;
 	}
@@ -57,5 +57,5 @@ public class ModeleTable{
 		return ;
 	}*/
 
-}       
+}
 

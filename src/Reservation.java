@@ -16,12 +16,12 @@ public class Reservation{
 		tables = new ModeleTable();
 		//reservation = new ModeleReservation();
 		Object[][] reservation = {
-			{"DURANT", 10},
-			{"MICHEL", 23},
-			{"CHANIAT", 12},
-			{"SUPER", 15},
-			{"TARTARE", 2},
-			{"DUCLOUX", 86}
+			{"DURANT", 10, 2},
+			{"MICHEL", 23, 2},
+			{"CHANIAT", 12, 5},
+			{"SUPER", 15, 3},
+			{"TARTARE", 2, 1},
+			{"DUCLOUX", 86, 8}
 		};
                 Table[] t =tables.getAll();
 
@@ -29,9 +29,13 @@ public class Reservation{
 		view = new VueReservation(t, reservation);
 
 		// On charge le controleur
-                ControleurReservation ctrl=new ControleurReservation(tables, t, view.getComponents());
+
+                ControleurReservation ctrl=new ControleurReservation(tables, t, view.getMyComponents(), view);
 		ControleurTables tableCtrl = new ControleurTables(tables, t, ctrl);
-                tableCtrl.setMode(ControleurTables.RESERVATION);
+                tableCtrl.setMode(ControleurTables.NONE);
+                //ListeReservationListener lrl = new ListeReservationListener(ctrl);
+
+                view.addActionControleur(ctrl);
 
                 for(int i=0; i<t.length; i++){
 		    t[i].addMouseListener(tableCtrl);

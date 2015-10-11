@@ -22,7 +22,7 @@ public class Nettoyage{
 		t=view.getTables();
 
 		// On charge le controleur
-		ctrl = new ControleurTables(tables, t);
+		ctrl = new ControleurTables(tables, t, view);
 		for(int i=0; i<t.length; i++){
 			t[i].addMouseListener(ctrl);
 		}

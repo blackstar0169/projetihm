@@ -12,6 +12,7 @@ public class Table extends JComponent {
 	private byte statut;
 	private int groupId;
         private boolean selected;
+        private int rangee;
 
 
 	public Table(int num, byte statut, int gId){
@@ -68,6 +69,13 @@ public class Table extends JComponent {
         }
         public boolean isSelected(){
             return this.selected;
+        }
+
+        public int getRangee(){
+            return this.rangee;
+        }
+        public void setRangee(int r){
+            this.rangee=r;
         }
 
 }
