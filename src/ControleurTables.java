@@ -21,6 +21,7 @@ public class ControleurTables implements MouseListener{
 	    this.tables = t;
             this.ctrl = c;
             this.selection = new ArrayList<Table>();
+            this.mode=0;
 	}
         public ControleurTables(ModeleTable m, Table[] t){
             this.model = m;
@@ -70,9 +71,11 @@ public class ControleurTables implements MouseListener{
                     //Update le model
                 }
                 else if(t.isSelected()==false && t.getStatut() == Table.LIBRE && this.mode==ControleurTables.RESERVATION){
-                    if(this.ctrl.setTableCounter(this.selection.size()+1)){ //On verifie si on a encore des table a sélectionner
+                    System.out.println("click");
+                    if(ctrl.setTableCounter(selection.size()+1)){
                         t.setSelected(true);
-                        this.selection.add(t);
+                        selection.add(t);
+
                     }
                 }
                 else if(t.isSelected()==false && t.getStatut() == Table.RESERVE && this.mode==ControleurTables.PAIEMENT){

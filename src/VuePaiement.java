@@ -78,13 +78,13 @@ public class VuePaiement extends JPanel{
             for(int j=0; j<10; j++){
                 rightPad = leftPad = 5;
                 try{
-                    if(t[cnt].getGroupId() == t[cnt+1].getGroupId()){
+                    if(t[cnt].getGroupId() == t[cnt+1].getGroupId() && t[cnt].getGroupId()!=-1){
                        rightPad=0;
                     }
                 }catch(IndexOutOfBoundsException e){}
 
                 try{
-                    if(t[cnt-1].getGroupId() == t[cnt].getGroupId()){
+                    if(t[cnt-1].getGroupId() == t[cnt].getGroupId() && t[cnt].getGroupId()!=-1){
                         leftPad=0;
                     }
                 }catch(IndexOutOfBoundsException e){}

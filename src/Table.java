@@ -56,6 +56,7 @@ public class Table extends JComponent {
 
 	public void setGroupId(int id){
 		this.groupId = id;
+                repaint();
 	}
 	public int getGroupId(){
 		return this.groupId;

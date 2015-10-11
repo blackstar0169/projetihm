@@ -15,7 +15,7 @@ public class VueReservation extends JPanel{
 		JPanel panneauMenu = new JPanel();
 		JPanel panneauPlan = new JPanel();
 		GridBagConstraints c = new GridBagConstraints();
-		int cnt = 0;
+		int cnt = 0, leftPad, rightPad;
 
 		this.valider = new JButton("Valider");
 		this.annuler = new JButton("Annuler");
@@ -55,13 +55,13 @@ public class VueReservation extends JPanel{
                     for(int j=0; j<10; j++){
                         rightPad = leftPad = 5;
                         try{
-                            if(t[cnt].getGroupId() == t[cnt+1].getGroupId()){
+                            if(t[cnt].getGroupId() == t[cnt+1].getGroupId() && t[cnt].getGroupId()!=-1){
                                rightPad=0;
                             }
                         }catch(IndexOutOfBoundsException e){}
 
                         try{
-                            if(t[cnt-1].getGroupId() == t[cnt].getGroupId()){
+                            if(t[cnt-1].getGroupId() == t[cnt].getGroupId() && t[cnt].getGroupId()!=-1){
                                 leftPad=0;
                             }
                         }catch(IndexOutOfBoundsException e){}
@@ -69,7 +69,7 @@ public class VueReservation extends JPanel{
                         c.gridx = j;
                         c.gridy = i;
                         t[cnt].setMinimumSize(new Dimension(10,10));
-                        this.add(t[cnt], c);
+                        panneauPlan.add(t[cnt], c);
                         cnt++;
                     }
                 }
@@ -87,7 +87,7 @@ public class VueReservation extends JPanel{
 
                         c.gridx = j;
                         c.gridy = i;
-                        this.add(t[cnt], c);
+                        panneauPlan.add(t[cnt], c);
                         cnt++;
                     }
                 }

@@ -72,6 +72,7 @@ public class ControleurPaiement extends Controleur implements ActionListener{
                 ArrayList<Table> tab = ControleurTables.getSelection();
                 for(int i=0; i<tab.size(); i++){
                     tab.get(i).setStatut(Table.ALAVER);
+                    tab.get(i).setGroupId(-1);
                 }
                 ControleurTables.deleteSelection();
                 this.tableCounter=0;
@@ -108,7 +109,7 @@ public class ControleurPaiement extends Controleur implements ActionListener{
 
                     public void warn() {
                         try{
-                            if(Float.parseFloat(payTextField.getText())>=0 || tableCounter>0){
+                            if(Float.parseFloat(payTextField.getText())>=0 && tableCounter>0){
                                 valider.setEnabled(true);
                                 valider.setBackground(Color.GREEN);
                             }else{

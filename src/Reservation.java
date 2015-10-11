@@ -23,14 +23,19 @@ public class Reservation{
 			{"TARTARE", 2},
 			{"DUCLOUX", 86}
 		};
-                Tables[]=tables.getAll();
+                Table[] t =tables.getAll();
 
 		// On charge la vue
-		view = new VueReservation(tables.getAll(), reservation);
+		view = new VueReservation(t, reservation);
 
 		// On charge le controleur
-                ctrl=new ControleurReservation(tables, t, reservation);
-		tableCtrl = new ControleurTables(tables, t, ctrl);
+                ControleurReservation ctrl=new ControleurReservation(tables, t, view.getComponents());
+		ControleurTables tableCtrl = new ControleurTables(tables, t, ctrl);
+                tableCtrl.setMode(ControleurTables.RESERVATION);
+
+                for(int i=0; i<t.length; i++){
+		    t[i].addMouseListener(tableCtrl);
+		}
 
 		fenetre.add(view, BorderLayout.CENTER);
 		fenetre.setVisible(true);
