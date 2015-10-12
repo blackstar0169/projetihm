@@ -134,19 +134,7 @@ public class VueReservation extends JPanel{
         annuler.addActionListener(c);
         option.addActionListener(c);
         nouveauClient.addActionListener(c);
-        tableau.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event) {
-                DefaultTableModel m = (DefaultTableModel)tableau.getModel();
-                int row = tableau.getSelectedRow();
-                if(row>=0){
-                    System.out.println(row);
-                    int gid = (int)tableau.getValueAt(row, 1);
-                    String nom = (String)tableau.getValueAt(row, 0);
-                    int nbrP = (int)tableau.getValueAt(row, 2);
-                    c.placerReservation(gid, nom, nbrP);
-                }
-            }
-        });
+        tableau.getSelectionModel().addListSelectionListener(new ListeReservationListener(c, this.tableau));
     }
 
     public Component[] getMyComponents(){
@@ -155,7 +143,11 @@ public class VueReservation extends JPanel{
         c[1] = nouveauClient;
         c[2] = tableau;
         return c;
+    }
 
-
+    public void deleteRow(int id){
+        this.model.removeRow(id);
+        revalidate();
+        repaint();
     }
 }

@@ -8,6 +8,7 @@ public class ControleurReservation extends Controleur implements ActionListener{
 
     private int personnesAPlacer;
     private int idGroupe;
+    private int rowId;
     private String nomGroupe;
     private Table[] tables;
 
@@ -50,6 +51,7 @@ public class ControleurReservation extends Controleur implements ActionListener{
                 idGroupe=0;
                 personnesAPlacer=0;
                 ControleurTables.setMode(ControleurTables.NONE);
+                vue.deleteRow(rowId);
                 vue.init();
             }
             else if(b.getName()=="nouveauClient"){
@@ -114,12 +116,12 @@ public class ControleurReservation extends Controleur implements ActionListener{
         return false;
     }
 
-    public void placerReservation(int gid, String nom, int nbrP){
+    public void placerReservation(int rId, int gid, String nom, int nbrP){
         personnesAPlacer=nbrP;
         nomGroupe=nom;
         idGroupe=gid;
         ControleurTables.setMode(ControleurTables.RESERVATION);
-
+        rowId = rId;
     }
 
 }

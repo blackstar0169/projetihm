@@ -2,15 +2,17 @@ import java.awt.event.*;
 import javax.swing.table.*;
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
+import javax.swing.event.*;
 
 
-public class ListeReservationListener implements {
+public class ListeReservationListener implements ListSelectionListener{
 
     private ControleurReservation ctrl;
+    private JTable tableau;
 
-    public ListeReservationListener(ControleurReservation c){
+    public ListeReservationListener(ControleurReservation c, JTable t){
         this.ctrl=c;
+        this.tableau = t;
     }
 
 
@@ -19,17 +21,13 @@ public class ListeReservationListener implements {
     * @param e le
     */
     public void valueChanged(ListSelectionEvent me){
-        if(me.getSource() instanceof JTable){
-            JTable tableau = (JTable)me.getSource();
-            DefaultTableModel model = (DefaultTableModel)tableau.getModel();
-            int row = tableau.rowAtPoint(me.getPoint());
-            if(row>=0){
-                int gid = (int)tableau.getValueAt(row, 1);
-                String nom = (String)tableau.getValueAt(row, 0);
-                int nbrP = (int)tableau.getValueAt(row, 2);
-                ctrl.placerReservation(gid, nom, nbrP);
-                model.removeRow(row);
-            }
+        DefaultTableModel m = (DefaultTableModel)tableau.getModel();
+        int row = tableau.getSelectedRow();
+        if(row>=0){
+            int gid = (int)tableau.getValueAt(row, 1);
+            String nom = (String)tableau.getValueAt(row, 0);
+            int nbrP = (int)tableau.getValueAt(row, 2);
+            ctrl.placerReservation(row, gid, nom, nbrP);
         }
     }
 
