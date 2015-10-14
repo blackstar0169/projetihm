@@ -13,13 +13,15 @@ public class Table extends JComponent {
 	private int groupId;
         private boolean selected;
         private int rangee;
+        private String nom;
 
 
-	public Table(int num, byte statut, int gId){
+	public Table(int num, byte statut, int gId, String n){
 		this.numero = num;
 		this.statut = statut;
 		this.groupId = gId;
                 this.selected=false;
+                this.nom = n;
 	}
 
 	public void paintComponent(Graphics g){
@@ -38,6 +40,13 @@ public class Table extends JComponent {
 
 		g.setColor(couleur);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+                if(nom != null){
+                    g.setColor(Color.BLACK);
+                    g.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+
+                    g.drawString(nom, 10, 20);
+                }
 	}
 
 	public int setNumero(int n){
@@ -62,6 +71,13 @@ public class Table extends JComponent {
 	public int getGroupId(){
 		return this.groupId;
 	}
+
+        public void setNom(String n){
+            this.nom = n;
+        }
+        public String getNom(){
+            return this.nom;
+        }
 
         public void setSelected(boolean b){
             this.selected = b;

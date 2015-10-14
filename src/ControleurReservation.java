@@ -12,18 +12,32 @@ public class ControleurReservation extends Controleur implements ActionListener{
     private String nomGroupe;
     private Table[] tables;
 
+
     private JButton valider;
     private JButton nouveauClient;
 
+
+    private ModeleTable modeleTable;
+    private ModeleReservation modeleRes;
+
     private VueReservation vue;
 
-    public ControleurReservation(ModeleTable m, Table[] t,  Component[] rC, VueReservation v){
+    public ControleurReservation(ModeleTable mT, ModeleReservation mR, Table[] t,  Component[] rC, VueReservation v){
         setComponents(rC);
         this.tableCounter = 0;
         this.personnesAPlacer = 20;
         this.idGroupe=0;
         this.tables = t;
         this.vue = v;
+        Calendar cal = Calendar.getInstance();
+        cal.set(2015, 10 , 02, 11, 30);
+        ModeleReservation[] res = mR.getInterval(cal, 60);
+        v.setReservations(res);
+        v.setTableauListener(this);
+        this.modeleTable = mT;
+        this.modeleRes = mR;
+
+
     }
 
     public void actionPerformed(ActionEvent e){
@@ -43,6 +57,7 @@ public class ControleurReservation extends Controleur implements ActionListener{
                 for(int i=0; i<tab.size(); i++){
                     tab.get(i).setStatut(Table.RESERVE);
                     tab.get(i).setGroupId(idGroupe);
+                    tab.get(i).setNom(nomGroupe);
                 }
                 ControleurTables.deleteSelection();
                 this.tableCounter=0;
@@ -51,8 +66,10 @@ public class ControleurReservation extends Controleur implements ActionListener{
                 idGroupe=0;
                 personnesAPlacer=0;
                 ControleurTables.setMode(ControleurTables.NONE);
+                modeleTable.updateTables(this.tables);
                 vue.deleteRow(rowId);
                 vue.init();
+                //mr.delete(groupId);
             }
             else if(b.getName()=="nouveauClient"){
                 ControleurTables.setMode(ControleurTables.NONE);

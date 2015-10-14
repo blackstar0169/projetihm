@@ -14,16 +14,16 @@ public class VueReservation extends JPanel{
     private Object[][] reservations;
     private DefaultTableModel model;
 
-    public VueReservation(Table[] t, Object[][] res){
+    public VueReservation(Table[] t){
         this.valider = new JButton("Valider");
         this.annuler = new JButton("Annuler");
         this.option = new JButton("Option");
         this.nouveauClient = new JButton("Nouveau client");
         nouveauClient.setName("nouveauClient");
         this.tables = t;
-        this.reservations = res;
-        String[] entetes = {"Nom", "N°Groupe", "Nombre de personnes"};
-        this.model = new DefaultTableModel(res, entetes);
+        this.reservations = null;
+        String[] entetes = {"N°Groupe", "Nom", "Nombre de personnes", "Date", "Creneau"};
+        this.model = new DefaultTableModel(null, entetes);
         this.tableau = new JTable(model);
         this.init();
     }
@@ -150,4 +150,33 @@ public class VueReservation extends JPanel{
         revalidate();
         repaint();
     }
+
+    public void setTables(Table[] t){
+        this.tables=t;
+    }
+
+    public void setTableauListener(ControleurReservation c){
+        ListeReservationListener lrl = new ListeReservationListener(c, tableau);
+    }
+
+    public void setReservations(ModeleReservation[] r){
+        if(r!=null){
+            Object[][] obj = new Object[r.length][5];
+            for(int i=0; i<r.length; i++){
+               obj[i][0] = r[i].getId();
+               obj[i][1] = r[i].getNom();
+               obj[i][2] = r[i].getPlaces();
+               obj[i][3] = r[i].getDate();
+               obj[i][4] = r[i].getCreneau();
+            }
+            this.reservations = obj;
+            String[] entetes = {"N°Groupe", "Nom", "Nombre de personnes", "Date", "Creneau"};
+            this.model = new DefaultTableModel(obj, entetes);
+            this.tableau = new JTable(model);
+            this.init();
+            revalidate();
+            repaint();
+        }
+    }
+
 }

@@ -24,8 +24,8 @@ public class ListeReservationListener implements ListSelectionListener{
         DefaultTableModel m = (DefaultTableModel)tableau.getModel();
         int row = tableau.getSelectedRow();
         if(row>=0){
-            int gid = (int)tableau.getValueAt(row, 1);
-            String nom = (String)tableau.getValueAt(row, 0);
+            int gid = (int)tableau.getValueAt(row, 0);
+            String nom = (String)tableau.getValueAt(row, 1);
             int nbrP = (int)tableau.getValueAt(row, 2);
             ctrl.placerReservation(row, gid, nom, nbrP);
         }
