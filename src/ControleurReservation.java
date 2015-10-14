@@ -48,6 +48,7 @@ public class ControleurReservation extends Controleur implements ActionListener{
                 this.tableCounter=0;
                 idGroupe=0;
                 this.personnesAPlacer=0;
+                this.nomGroupe=null;
                 this.valider.setEnabled(false);
                 this.valider.setBackground(Color.GRAY);
                 ControleurTables.setMode(ControleurTables.NONE);
@@ -69,6 +70,7 @@ public class ControleurReservation extends Controleur implements ActionListener{
                 modeleTable.updateTables(this.tables);
                 vue.deleteRow(rowId);
                 vue.init();
+                this.nomGroupe=null;
                 //mr.delete(groupId);
             }
             else if(b.getName()=="nouveauClient"){

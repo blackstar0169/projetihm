@@ -68,7 +68,9 @@ public class ControleurTables implements MouseListener{
                 if(t.getStatut() == Table.ALAVER && this.mode==ControleurTables.NETTOYAGE){
                     t.setStatut(Table.LIBRE);
                     t.setGroupId(-1);
+                    t.setNom("");
                     vue.init();
+                    model.updateOneTable(t);
                     //Update le model
                 }
                 else if(t.isSelected()==false && t.getStatut() == Table.LIBRE && this.mode==ControleurTables.RESERVATION){

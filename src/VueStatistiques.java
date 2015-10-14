@@ -15,6 +15,7 @@ public class VueStatistiques extends JPanel{
     JButton sortButton;
     JRadioButton sortService;
     JRadioButton sortDate;
+    JTextField dateTextField;
 
     public VueStatistiques(){
         this.setLayout(new BorderLayout());
@@ -28,14 +29,18 @@ public class VueStatistiques extends JPanel{
 
         String[] strServices = new String[]{"Midi", "Soir"};
         this.service = new JComboBox<>(strServices);
+        this.service.setName("service");
 
         this.sortService = new JRadioButton("Service");
-        this.sortService.setName("service");
-        this.sortDate = new JRadioButton("Date");
-        this.sortDate.setName("date");
+        this.sortService.setName("sortService");
+        this.sortService.setSelected(true);
+        this.sortDate = new JRadioButton("Date (dd/mm/yyyy)");
+        this.sortDate.setName("sortDate");
 
-        this.date = new JTextField();
-        this.chiffreAffaire = new JLabel("Pas de chiffre d'affaire");
+        this.dateTextField = new JTextField();
+        dateTextField.setName("dateTextField");
+        this.chiffreAffaire = new JLabel("Sélectionnez un mode de tri");
+        chiffreAffaire.setName("chiffreAffaire");
         JLabel dateLabel = new JLabel("Date");
         JLabel sortLabel = new JLabel("Afficher en fonction de :");
         JLabel serviceLabel = new JLabel("Service");
@@ -44,7 +49,7 @@ public class VueStatistiques extends JPanel{
 
 
         this.sortButton = new JButton("Trier");
-        this.sortButton.setName("sortButton");
+        this.sortButton.setName("trier");
 
 
         groupRadio.add(sortService);
@@ -78,8 +83,8 @@ public class VueStatistiques extends JPanel{
         mainPanel.add(dateLabel,c);
         c.gridx=1;
         c.anchor=GridBagConstraints.CENTER;
-        date.setPreferredSize(new Dimension(100, 25));
-        mainPanel.add(date, c);
+        dateTextField.setPreferredSize(new Dimension(100, 25));
+        mainPanel.add(dateTextField, c);
         c.gridy=1;
         c.gridx=0;
         c.anchor=GridBagConstraints.FIRST_LINE_END;
@@ -127,5 +132,17 @@ public class VueStatistiques extends JPanel{
         this.payButton.addActionListener(ctrl);
         this.option.addActionListener(ctrl);
         this.sortButton.addActionListener(ctrl);
+    }
+
+    public Component[] getStatComponents(){
+        Component[] comp = new Component[5];
+
+        comp[0] = dateTextField;
+        comp[1] = chiffreAffaire;
+        comp[2] = sortService;
+        comp[3] = sortDate;
+        comp[4] = service;
+
+        return comp;
     }
 }

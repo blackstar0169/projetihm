@@ -70,7 +70,6 @@ public class ModeleTable{
             Connection connexion;
             Statement declaration;
 
-
             try{
                 try{
                     Class.forName("org.mariadb.jdbc.Driver");
@@ -87,7 +86,35 @@ public class ModeleTable{
                     String sql = "UPDATE `Table` SET statut="+t[i].getStatut()+", nom="+nom+", groupId="+t[i].getGroupId()+" WHERE id="+t[i].getNumero()+";";
                     ResultSet r = declaration.executeQuery(sql);
                 }
+                declaration.close();
+                connexion.close();
 
+            }catch(SQLException e){
+                System.out.println("Erreur sql : "+e.getMessage());
+                return -1;
+            }
+            return 0;
+
+        }
+
+         public int updateOneTable(Table t){
+            Connection connexion;
+            Statement declaration;
+
+            try{
+                try{
+                    Class.forName("org.mariadb.jdbc.Driver");
+                }catch(ClassNotFoundException ce){System.err.println("Erreur lors du chargement de la classe");}
+                connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/duplata","duplata","13060169");
+                declaration = connexion.createStatement();
+                String nom;
+                nom="'"+t.getNom()+"'";
+
+                if(t.getNom()==null){
+                    nom = "null";
+                }
+                String sql = "UPDATE `Table` SET statut="+t.getStatut()+", nom="+nom+", groupId="+t.getGroupId()+" WHERE id="+t.getNumero()+";";
+                ResultSet r = declaration.executeQuery(sql);
 
                 declaration.close();
                 connexion.close();
@@ -96,7 +123,6 @@ public class ModeleTable{
                 System.out.println("Erreur sql : "+e.getMessage());
                 return -1;
             }
-
             return 0;
 
         }
