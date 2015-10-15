@@ -3,7 +3,13 @@ import java.util.*;
 
 public class ModelePaiement{
 
-
+    /**
+     * Insert un nouvel enrgegistrement de paiement dans la bdd.
+     * @param cal La date de paiement
+     * @param prix Le prix qu'a payé le client
+     * @param type Le mode de paiement utilisé
+     * @return -1 en cas d'échec et 0 en cas de succès
+     */
     public int insert(Calendar cal, float prix, String type){
         Connection connexion, connexion2;
         Statement declaration, declaration2;
@@ -50,6 +56,7 @@ public class ModelePaiement{
 
     }
 
+    
     public float getCADate(Calendar cal){
         Connection connexion;
         Statement declaration;
@@ -62,13 +69,14 @@ public class ModelePaiement{
             connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/duplata","duplata","13060169");
             declaration = connexion.createStatement();
 
+            // On calcule l'interval de recupération du CA
             Calendar dB = Calendar.getInstance();
             Calendar dE = Calendar.getInstance();
 
             dB.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE), 0, 0, 0);
             dE.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE), 23, 59, 59);
 
-
+            // On transforme les Calendar en Timestamp compris par la bdd
             Timestamp dBegin = new Timestamp(dB.getTimeInMillis());
             Timestamp dEnd = new Timestamp(dE.getTimeInMillis());
             String sql = "SELECT prix FROM `Paiement` WHERE date>='"+dBegin+"' AND date<='"+dEnd+"';";
@@ -91,6 +99,11 @@ public class ModelePaiement{
         return ca;
     }
 
+    /**
+     * Récupères le chiffre d'affaire en fonction du service.
+     * @param s Le service pour lequel on doit récupérer le chiffre d'affaire.
+     * @return int Le chiffre d'affaire du jour.
+     */
     public float getCAService(String s){
         Connection connexion;
         Statement declaration;

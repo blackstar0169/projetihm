@@ -1,6 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Classe de création d'histogramme.
+ * @author Anthony DUPLAT
+ */
+
+
 public class Histogramme extends JPanel{
     private int xStep;
     private int yStep;
@@ -9,7 +15,7 @@ public class Histogramme extends JPanel{
     private float[] data;
     private int numberOfElements;
 
-
+    
     public Histogramme(int xS, int yS, String xL, String yL, float[] d, int n){
         this.xStep = xS;
         this.yStep = yS;
@@ -39,6 +45,7 @@ public class Histogramme extends JPanel{
         //Tracage du graph
         int maxHeight = y[1]-y[0];
         int maxWidth = x[2]-x[1];
+        // Soit w la largeur d'une barre, h sa hauteur
         int w, h, xg;
 
         try{
@@ -50,12 +57,13 @@ public class Histogramme extends JPanel{
         for(int i=0; i<this.numberOfElements; i++){
             g.setColor(Color.GREEN);
 
+            // Produit en croix des familles pour calculer la hauteur de la barre en fonction du pourcentage
             h = (int)(this.data[i]*maxHeight/100);
 
             xg = i*w+x[0]; // Nombre de barres dessinées + la position relative de l'origine des abscisses
-            g.fillRect(xg+1, y[1]-h, w, h);
+            g.fillRect(xg+1, y[1]-h, w, h); 
             g.setColor(Color.BLACK);
-            g.drawRect(xg, y[1]-h, w, h);
+            g.drawRect(xg, y[1]-h, w, h);// On trace les contours pour plus de lisibilité
 
         }
 

@@ -218,7 +218,7 @@ public class VuePaiement extends JPanel{
 
     /**
      * Ajoute le controleur aux bouton de l'interface.
-     * @param c Le controleur chargé d'écouter les boutons de la vue.
+     * @param ctrl Le controleur chargé d'écouter les boutons de la vue.
      */
     public void addActionController(ControleurPaiement ctrl){
         this.valider.addActionListener(ctrl);
@@ -229,7 +229,7 @@ public class VuePaiement extends JPanel{
 
     /**
      * Ajoute le controleur aux cases du tableau.
-     * @param c Le controleur chargé d'écouter les cases du tableau.
+     * @param ctrl Le controleur chargé d'écouter les cases du tableau.
      */
     public void addMouseController(ControleurTables ctrl){
         for(int i=0; i<this.tables.length; i++){

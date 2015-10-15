@@ -2,6 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
+
+/**
+ * Classe Main pour le système de paiement
+ * @author Anthony DUPLAT
+ */
+
 public class Paiement{
 
 	public static void main(String[] args){

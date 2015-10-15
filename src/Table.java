@@ -61,8 +61,8 @@ public class Table extends JComponent {
 	* Modifie le numero de la table
 	* @param n Le nouveau numero de la table
 	*/
-	public int setNumero(int n){
-		return this.numero = n;
+	public void setNumero(int n){
+		this.numero = n;
 	}
 	/**
      * Renvoi le numero de la table.
@@ -144,7 +144,7 @@ public class Table extends JComponent {
     }
     /**
 	* Modifie le numero de la rangée
-	* @param n Le nouveau numero de la rangée
+	* @param r Le nouveau numero de la rangée
 	*/
     public void setRangee(int r){
         this.rangee=r;

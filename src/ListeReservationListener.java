@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.event.*;
 
+/**
+* Classe du listener des lignes du tableau de réservation.
+* @author Anthony DUPLAT
+*/
 
 public class ListeReservationListener implements ListSelectionListener{
 
@@ -18,7 +22,7 @@ public class ListeReservationListener implements ListSelectionListener{
 
     /**
     * Reagit au clique sur les tables
-    * @param e le
+    * @param me L'evenement de la souris
     */
     public void valueChanged(ListSelectionEvent me){
         DefaultTableModel m = (DefaultTableModel)tableau.getModel();

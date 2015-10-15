@@ -1,6 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Classe Main pour le système de nettoyage
+ * @author Anthony DUPLAT
+ */
+
+
 public class Nettoyage{
 
 	public static void main(String[] args){

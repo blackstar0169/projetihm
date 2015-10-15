@@ -40,61 +40,71 @@ public class ControleurReservation extends Controleur implements ActionListener{
         v.setTableauListener(this);
         this.modeleTable = mT;
         this.modeleRes = mR;
-
+        // Initialisation du timer de rafraichissement
         java.util.Timer timer = new java.util.Timer();
         timer.schedule(new Refresh(this.tables, v), 0, 30000);
     }
 
+    /**
+    * Reagit au clique sur les boutons
+    * @param e L'ActionEvent genere
+    */
     public void actionPerformed(ActionEvent e){
         if(e.getSource() instanceof JButton){
             JButton b = (JButton) e.getSource();
-            if(b.getName()=="annuler"){
-                ControleurTables.deleteSelection();
-                this.tableCounter=0;
+            if(b.getName()=="annuler"){ //Si on annule
+                ControleurTables.deleteSelection(); // On déselectionne les tables
+                this.tableCounter=0; // On reset les compteurs
                 idGroupe=0;
                 this.personnesAPlacer=0;
                 this.nomGroupe=null;
                 this.valider.setEnabled(false);
                 this.valider.setBackground(Color.GRAY);
-                ControleurTables.setMode(ControleurTables.NONE);
+                ControleurTables.setMode(ControleurTables.NONE); //On empèche l'utilisateur de sélectionner une table avant d'avoir le nombre de clients à placer
             }
-            else if(b.getName()=="valider"){
+            else if(b.getName()=="valider"){ //Si on valide
                 ArrayList<Table> tab = ControleurTables.getSelection();
+                // On récupère les tables sélectionnées
                 for(int i=0; i<tab.size(); i++){
                     tab.get(i).setStatut(Table.RESERVE);
                     tab.get(i).setGroupId(idGroupe);
                     tab.get(i).setNom(nomGroupe);
                 }
+                //On reset les compteurs et on désélectionne les tables
                 ControleurTables.deleteSelection();
-                this.tableCounter=0;
+                this.tableCounter=0; 
                 this.valider.setEnabled(false);
                 this.valider.setBackground(Color.GRAY);
                 idGroupe=0;
                 personnesAPlacer=0;
                 ControleurTables.setMode(ControleurTables.NONE);
-                modeleTable.updateTables(this.tables);
+                modeleTable.updateTables(this.tables); // On update la bdd des tables
                 vue.deleteRow(rowId);
                 vue.init();
                 this.nomGroupe=null;
-                //mr.delete(groupId);
+                //On peut supprimer la réservation dans la table mais elle n'est qu'en lecture seule
             }
-            else if(b.getName()=="nouveauClient"){
+            else if(b.getName()=="nouveauClient"){ // Si on entre un nouveau client
                 ControleurTables.setMode(ControleurTables.NONE);
                 this.tableCounter=0;
                 this.personnesAPlacer=0;
                 this.valider.setEnabled(false);
                 this.valider.setBackground(Color.GRAY);
+                // On demande le nombre de clients
                 ControleurTables.deleteSelection();
                 String nbr = JOptionPane.showInputDialog(null,
                         "Nombre de personnes : ", null);
                 try{
+                    // On teste si ce nombre est valide
                     this.personnesAPlacer=Integer.parseInt(nbr);
                     if(personnesAPlacer<0){
+                        // Si le nombre n'est pas valide on affiche un message d'erreur
                         JOptionPane.showMessageDialog(null,
                             "Vous devez entrer un nombre entre 1 et 60", "Numero invalide",
                             JOptionPane.ERROR_MESSAGE);
                         personnesAPlacer=0;
                     }else{
+                        //Si tout ce passe bien on affect un id pas encore placé
                         idGroupe=0;
                         boolean exist=true;
                         while(exist){
@@ -117,18 +127,16 @@ public class ControleurReservation extends Controleur implements ActionListener{
 
             }
             else if(b.getName()=="option"){
+                //Si on clique sur option on change le temps
                 String strDate = JOptionPane.showInputDialog(null,
                         "Réglage de temps (ex: 03/06/1996 15:06) ", null);
 
-                try{
+                try{ // On test si la date est valide
                     temps = Calendar.getInstance();
                     Date d;
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH);;
                     d = sdf.parse(strDate);
                     temps.set(d.getYear()+1900, d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds());
-                    //System.out.println(cal.getTimeInMillis()-now.getTimeInMillis());
-                    //System.out.println(difTemps);
-                    //difTemps = (int)(difTemps/60); //Transformation en minutes
                     updateReservation();
 
                 }catch(Exception exep){
@@ -140,6 +148,10 @@ public class ControleurReservation extends Controleur implements ActionListener{
         }
     }
 
+    /**
+     * Modifie les éléments à manipuler.
+     * @param c Le tableau de composants à manipuler.
+     */
     public void setComponents(Component[] c){
         for(int i=0; i<c.length; i++){
             if(c[i].getName()=="valider")
@@ -149,6 +161,11 @@ public class ControleurReservation extends Controleur implements ActionListener{
         }
     }
 
+    /**
+     * Modifie le compteur des tables sélectionnées.
+     * @param n Le nombre de tables sélectionnées.
+     * @return true Si la sélection peut se faire. 
+     */
     public boolean setTableCounter(int n){
         if((n-1)*2<personnesAPlacer){
             this.tableCounter =n;
@@ -161,6 +178,13 @@ public class ControleurReservation extends Controleur implements ActionListener{
         return false;
     }
 
+    /**
+     * Initialise la réservation à placer.
+     * @param rId L'id de la ligne dans le tableau.
+     * @param gid L'id de la réservation.
+     * @param nom Le nom du client.
+     * @param nbrP Le nombre de personnes à placer.
+     */
     public void placerReservation(int rId, int gid, String nom, int nbrP){
         personnesAPlacer=nbrP;
         nomGroupe=nom;
@@ -168,7 +192,9 @@ public class ControleurReservation extends Controleur implements ActionListener{
         ControleurTables.setMode(ControleurTables.RESERVATION);
         rowId = rId;
     }
-
+    /**
+    * Recharge les réservation dans la bdd.
+    */
     public void updateReservation(){
         ModeleReservation[] res = modeleRes.getInterval(temps, 60);
         vue.setReservations(res);
