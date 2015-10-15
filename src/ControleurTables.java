@@ -30,6 +30,10 @@ public class ControleurTables implements MouseListener{
 	    this.tables = t;
             this.mode = 1;//Nettoyage
             this.vue = v;
+            java.util.Timer timer = new java.util.Timer();
+            timer.schedule(new Refresh(this.tables), 0, 30000);
+            v.revalidate();
+            v.repaint();
         }
 
 	/**

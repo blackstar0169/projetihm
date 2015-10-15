@@ -50,7 +50,8 @@ public class ModeleReservation {
 
             // Récupérer les services
             String sql = "SELECT designation, debut FROM Service WHERE debut<='"+hDebut+":"+mDebut+":"+sDebut+"' AND fin>='"+hFin+":"+mFin+":"+sFin+"';";
-            //System.out.println(sql);
+
+            System.out.println(sql);
             ResultSet serv = declaration.executeQuery(sql);
             serv.first();
             if(serv.getRow()==0){
@@ -60,15 +61,15 @@ public class ModeleReservation {
 
             Time t = serv.getTime("debut");
 
-            sTemp = hDebut*3600+mDebut*60+sDebut-t.getHours()*3600+t.getMinutes()*60+t.getSeconds();
-            creneauBegin = 0;//(int)(sTemp/60)/15;
+            sTemp = (hDebut*60+mDebut)-(t.getHours()*60+t.getMinutes());
+            creneauBegin = (int)(sTemp/15);
             creneauEnd = (int)(creneauBegin+minutesInterval/15);
 
 
 
 
-            sql = "SELECT * FROM Reservation INNER JOIN Client ON Reservation.initiateur=Client.id WHERE Reservation.jour='"+begin.get(Calendar.YEAR)+"/"+begin.get(Calendar.MONTH)+"/"+begin.get(Calendar.DAY_OF_MONTH)+"' AND Reservation.creneau>="+creneauBegin+" AND Reservation.creneau<="+creneauEnd+" ORDER BY Reservation.id;";
-            //System.out.println(sql);
+            sql = "SELECT * FROM Reservation INNER JOIN Client ON Reservation.initiateur=Client.id WHERE Reservation.jour='"+begin.get(Calendar.YEAR)+"/"+(begin.get(Calendar.MONTH)+1)+"/"+begin.get(Calendar.DAY_OF_MONTH)+"' AND Reservation.creneau>="+creneauBegin+" AND Reservation.creneau<="+creneauEnd+" ORDER BY Reservation.id;";
+            System.out.println(sql);
             ResultSet r = declaration.executeQuery(sql);
             r.last();
 

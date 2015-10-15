@@ -16,13 +16,6 @@ public class VuePaiement extends JPanel{
 
     public VuePaiement(Table[] t){
         this.panneauPaiement = new JPanel();
-        JPanel panneauMenu = new JPanel();
-        JPanel panneauPlan = new JPanel();
-        GridBagConstraints c = new GridBagConstraints();
-        int cnt = 0, leftPad, rightPad;
-
-        JLabel paiementLabel = new JLabel("Somme à payer", SwingConstants.RIGHT);
-        JLabel deviseLabel = new JLabel("€");
 
         this.paiementTextField = new JTextField();
         this.paiementTextField.setName("payTextField");
@@ -40,7 +33,7 @@ public class VuePaiement extends JPanel{
         this.valider.setName("valider");
         this.statButton = new JButton("Satistiques");
         this.statButton.setName("statTab");
-        JButton payButton = new JButton("Paiement");
+
         this.annuler = new JButton("Annuler");
         this.annuler.setName("annuler");
         this.option = new JButton("Option");
@@ -48,6 +41,23 @@ public class VuePaiement extends JPanel{
 
         this.tables = t;
         this.setLayout(new BorderLayout());
+
+        this.init();
+
+    }
+
+    public void init(){
+        removeAll();
+        panneauPaiement.removeAll();
+        JPanel panneauMenu = new JPanel();
+        JPanel panneauPlan = new JPanel();
+        GridBagConstraints c = new GridBagConstraints();
+        JButton payButton = new JButton("Paiement");
+        int cnt = 0, leftPad, rightPad;
+
+        JLabel paiementLabel = new JLabel("Somme à payer", SwingConstants.RIGHT);
+        JLabel deviseLabel = new JLabel("€");
+
         panneauPlan.setLayout(new GridBagLayout());
 
         valider.setBackground(Color.GRAY);
@@ -78,41 +88,43 @@ public class VuePaiement extends JPanel{
             for(int j=0; j<10; j++){
                 rightPad = leftPad = 5;
                 try{
-                    if(t[cnt].getGroupId() == t[cnt+1].getGroupId() && t[cnt].getGroupId()!=-1){
+                    if(tables[cnt].getGroupId() == tables[cnt+1].getGroupId() && tables[cnt].getGroupId()!=-1){
                        rightPad=0;
                     }
                 }catch(IndexOutOfBoundsException e){}
 
                 try{
-                    if(t[cnt-1].getGroupId() == t[cnt].getGroupId() && t[cnt].getGroupId()!=-1){
+                    if(tables[cnt-1].getGroupId() == tables[cnt].getGroupId() && tables[cnt].getGroupId()!=-1){
                         leftPad=0;
                     }
                 }catch(IndexOutOfBoundsException e){}
                 c.insets = new Insets(10, leftPad, 10, rightPad);
                 c.gridx = j;
                 c.gridy = i;
-                t[cnt].setMinimumSize(new Dimension(10,10));
-                panneauPlan.add(t[cnt], c);
+                tables[cnt].setMinimumSize(new Dimension(10,10));
+                panneauPlan.add(tables[cnt], c);
                 cnt++;
             }
         }
 
         for(int i=2; i<4; i++){
             for(int j=0; j<5; j++){
-                c.insets = new Insets(10,5,10,5);
+                rightPad = leftPad = 5;
                 try{
-                    if(t[cnt].getGroupId() == t[cnt+1].getGroupId()){
-                        c.insets = new Insets(10, 5, 10, 0);
-                    }else if(t[cnt-1].getGroupId() == t[cnt].getGroupId()){
-                        c.insets = new Insets(10, 0, 10, 5);
-                    }
+                    if(tables[cnt].getGroupId() == tables[cnt+1].getGroupId() && tables[cnt].getGroupId()!=-1)
+                        rightPad=0;
                 }catch(IndexOutOfBoundsException e){}
-
+                try{
+                    if(tables[cnt-1].getGroupId() == tables[cnt].getGroupId() && tables[cnt].getGroupId()!=-1)
+                        leftPad=0;
+                }catch(IndexOutOfBoundsException e){}
+                c.insets = new Insets(10, leftPad, 10, rightPad);
                 c.gridx = j;
                 c.gridy = i;
-                panneauPlan.add(t[cnt], c);
+                panneauPlan.add(tables[cnt], c);
                 cnt++;
             }
+
         }
 
         // Affichage du formularie de paiement
@@ -125,8 +137,6 @@ public class VuePaiement extends JPanel{
         c.gridx=0;
         c.gridy=0;
         c.anchor=GridBagConstraints.LINE_END;
-        paiementLabel.setMaximumSize(new Dimension(150, 30));
-
         panneauPaiement.add(paiementLabel, c);
 
         c.gridx=1;
@@ -188,6 +198,9 @@ public class VuePaiement extends JPanel{
         c.fill=GridBagConstraints.BOTH;
         panneauPlan.add(panneauPaiement, c);
         this.add(panneauPlan, BorderLayout.CENTER);
+
+        revalidate();
+        repaint();
 
     }
 

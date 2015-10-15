@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.event.*;
 import java.util.*;
+import java.text.SimpleDateFormat;
 
 public class ControleurReservation extends Controleur implements ActionListener{
 
@@ -22,6 +23,9 @@ public class ControleurReservation extends Controleur implements ActionListener{
 
     private VueReservation vue;
 
+    private int difTemps;
+    private Calendar temps;
+
     public ControleurReservation(ModeleTable mT, ModeleReservation mR, Table[] t,  Component[] rC, VueReservation v){
         setComponents(rC);
         this.tableCounter = 0;
@@ -30,14 +34,15 @@ public class ControleurReservation extends Controleur implements ActionListener{
         this.tables = t;
         this.vue = v;
         Calendar cal = Calendar.getInstance();
-        cal.set(2015, 10 , 02, 11, 30);
+        cal.set(2015, 9 , 02, 11, 30);
         ModeleReservation[] res = mR.getInterval(cal, 60);
         v.setReservations(res);
         v.setTableauListener(this);
         this.modeleTable = mT;
         this.modeleRes = mR;
 
-
+        java.util.Timer timer = new java.util.Timer();
+        timer.schedule(new Refresh(this.tables, v), 0, 30000);
     }
 
     public void actionPerformed(ActionEvent e){
@@ -111,6 +116,27 @@ public class ControleurReservation extends Controleur implements ActionListener{
                 }
 
             }
+            else if(b.getName()=="option"){
+                String strDate = JOptionPane.showInputDialog(null,
+                        "Réglage de temps (ex: 03/06/1996 15:06) ", null);
+
+                try{
+                    temps = Calendar.getInstance();
+                    Date d;
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH);;
+                    d = sdf.parse(strDate);
+                    temps.set(d.getYear()+1900, d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds());
+                    //System.out.println(cal.getTimeInMillis()-now.getTimeInMillis());
+                    //System.out.println(difTemps);
+                    //difTemps = (int)(difTemps/60); //Transformation en minutes
+                    updateReservation();
+
+                }catch(Exception exep){
+                    JOptionPane.showMessageDialog(null,
+                            "Vous devez entrer une date valide (ex: 03/06/1996 15:06).", "Date invalide",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
     }
 
@@ -141,6 +167,12 @@ public class ControleurReservation extends Controleur implements ActionListener{
         idGroupe=gid;
         ControleurTables.setMode(ControleurTables.RESERVATION);
         rowId = rId;
+    }
+
+    public void updateReservation(){
+        ModeleReservation[] res = modeleRes.getInterval(temps, 60);
+        vue.setReservations(res);
+        vue.setTableauListener(this);
     }
 
 }

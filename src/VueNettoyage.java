@@ -51,15 +51,16 @@ public class VueNettoyage extends JPanel{
 
             for(int i=2; i<4; i++){
                 for(int j=0; j<5; j++){
-                    c.insets = new Insets(10,5,10,5);
+                   rightPad = leftPad = 5;
                     try{
-                        if(tables[cnt].getGroupId() == tables[cnt+1].getGroupId() && tables[cnt].getGroupId()!=-1){
-                            c.insets = new Insets(10, 5, 10, 0);
-                        }else if(tables[cnt-1].getGroupId() == tables[cnt].getGroupId() && tables[cnt].getGroupId()!=-1){
-                            c.insets = new Insets(10, 0, 10, 5);
-                        }
+                    if(tables[cnt].getGroupId() == tables[cnt+1].getGroupId() && tables[cnt].getGroupId()!=-1)
+                        rightPad=0;
                     }catch(IndexOutOfBoundsException e){}
-
+                    try{
+                        if(tables[cnt-1].getGroupId() == tables[cnt].getGroupId() && tables[cnt].getGroupId()!=-1)
+                            leftPad=0;
+                    }catch(IndexOutOfBoundsException e){}
+                    c.insets = new Insets(10, leftPad, 10, rightPad);
                     c.gridx = j;
                     c.gridy = i;
                     this.add(tables[cnt], c);

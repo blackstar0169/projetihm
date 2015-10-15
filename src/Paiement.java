@@ -36,7 +36,7 @@ public class Paiement{
                 panneauPrincipal.add(payView, "paiement");
                 cartes.first(panneauPrincipal);
                 //Chargement du controleur
-                ctrl = new ControleurPaiement(panneauPrincipal, cartes, t, logView.getComponents(), payView.getPayComponents(), statView.getStatComponents());
+                ctrl = new ControleurPaiement(panneauPrincipal, cartes, t, logView.getComponents(), payView.getPayComponents(), statView.getStatComponents(), payView);
                 tableCtrl = new ControleurTables(tables, t, ctrl);
                 tableCtrl.setMode(ControleurTables.PAIEMENT);
 

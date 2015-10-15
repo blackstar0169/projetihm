@@ -18,6 +18,7 @@ public class VueReservation extends JPanel{
         this.valider = new JButton("Valider");
         this.annuler = new JButton("Annuler");
         this.option = new JButton("Option");
+        option.setName("option");
         this.nouveauClient = new JButton("Nouveau client");
         nouveauClient.setName("nouveauClient");
         this.tables = t;
@@ -90,15 +91,17 @@ public class VueReservation extends JPanel{
 
         for(int i=2; i<4; i++){
             for(int j=0; j<5; j++){
-                c.insets = new Insets(10,5,10,5);
+                rightPad = leftPad = 5;
                 try{
-                    if(tables[cnt].getGroupId() == tables[cnt+1].getGroupId() && tables[cnt].getGroupId()!=-1){
-                        c.insets = new Insets(10, 5, 10, 0);
-                    }else if(tables[cnt-1].getGroupId() == tables[cnt].getGroupId() && tables[cnt].getGroupId()!=-1){
-                        c.insets = new Insets(10, 0, 10, 5);
+                    if(tables[cnt].getGroupId() == tables[cnt+1].getGroupId() && tables[cnt].getGroupId()!=-1)
+                        rightPad=0;
+                }catch(IndexOutOfBoundsException e){}
+                try{
+                    if(tables[cnt-1].getGroupId() == tables[cnt].getGroupId() && tables[cnt].getGroupId()!=-1){
+                        leftPad=0;
                     }
                 }catch(IndexOutOfBoundsException e){}
-
+                c.insets = new Insets(10, leftPad, 10, rightPad);
                 c.gridx = j;
                 c.gridy = i;
                 tables[cnt].setRangee(i);
@@ -176,6 +179,16 @@ public class VueReservation extends JPanel{
             this.init();
             revalidate();
             repaint();
+        }
+        else{
+            String[] entetes = {"N°Groupe", "Nom", "Nombre de personnes", "Date", "Creneau"};
+            this.model = new DefaultTableModel(null, entetes);
+            this.tableau = new JTable(model);
+            this.init();
+            revalidate();
+            repaint();
+
+
         }
     }
 

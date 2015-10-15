@@ -34,7 +34,7 @@ public class ControleurPaiement extends Controleur implements ActionListener{
 
     private long difTemps;
 
-    public ControleurPaiement(JPanel p, CardLayout cl, Table[] t, Component[] lC, Component[] pC, Component[] sC){
+    public ControleurPaiement(JPanel p, CardLayout cl, Table[] t, Component[] lC, Component[] pC, Component[] sC, VuePaiement v){
         this.modeleTable = new ModeleTable();
         setLogComponents(lC);
         setPayComponents(pC);
@@ -47,13 +47,7 @@ public class ControleurPaiement extends Controleur implements ActionListener{
 
         //On raffraichi toutes les minutes
         java.util.Timer timer = new java.util.Timer();
-        timer.schedule(new TimerTask() {
-
-            @Override
-            public void run() {
-                refreshTables();
-            }
-        }, 0, 60000);
+        timer.schedule(new Refresh(this.tables, v), 0, 30000);
     }
 
     public void actionPerformed(ActionEvent e){
@@ -153,6 +147,9 @@ public class ControleurPaiement extends Controleur implements ActionListener{
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                     cal.setTime(sdf.parse(strDate));
                     difTemps = (int)((cal.getTimeInMillis()-now.getTimeInMillis())/1000);//Transformation en secondes
+                    if((cal.getTimeInMillis()-now.getTimeInMillis())%1000 > 0){
+                        difTemps++;
+                    }
                     //difTemps = (int)(difTemps/60); //Transformation en minutes
 
                 }catch(Exception exep){
