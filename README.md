@@ -13,14 +13,17 @@ Ce répertoire contient les dossiers qui concernent le projet d'ACDA du 3ème se
 *	Compiler et installer la partie Paiement :
 
 ``javac Paiement.java`` 
+
 ``java "../lib/maria-java-client.jar:." Paiement`` 
 
 *	Compiler et installer la partie Nettoyage :
 
 ``javac Nettoyage.java`` 
+
 ``java "../lib/maria-java-client.jar:." Nettoyage`` 
 
 *	Compiler et installer la partie Réservation :
 
 ``javac Reservation.java`` 
+
 ``java "../lib/maria-java-client.jar:." Reservation`` 
