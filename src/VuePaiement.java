@@ -1,6 +1,11 @@
 import java.awt.*;
 import javax.swing.*;
 
+/**
+* Classe gérant la vue des paiements.
+* @author Anthony DUPLAT
+*/
+
 public class VuePaiement extends JPanel{
     private Table[] tables;
     private JTextField paiementTextField;
@@ -46,6 +51,9 @@ public class VuePaiement extends JPanel{
 
     }
 
+    /**
+     * Permet d'initialiser la vue. Peut être appelée pour rafraichir la vue.
+     */
     public void init(){
         removeAll();
         panneauPaiement.removeAll();
@@ -88,12 +96,14 @@ public class VuePaiement extends JPanel{
             for(int j=0; j<10; j++){
                 rightPad = leftPad = 5;
                 try{
+                    // Si la table de droite à le même id et que cet id est différent de -1 on les colles ensembles
                     if(tables[cnt].getGroupId() == tables[cnt+1].getGroupId() && tables[cnt].getGroupId()!=-1){
                        rightPad=0;
                     }
                 }catch(IndexOutOfBoundsException e){}
 
                 try{
+                    // Si la table de gauche à le même id et que cet id est différent de -1 on les colles ensembles
                     if(tables[cnt-1].getGroupId() == tables[cnt].getGroupId() && tables[cnt].getGroupId()!=-1){
                         leftPad=0;
                     }
@@ -111,10 +121,12 @@ public class VuePaiement extends JPanel{
             for(int j=0; j<5; j++){
                 rightPad = leftPad = 5;
                 try{
+                    // Si la table de droite à le même id et que cet id est différent de -1 on les colles ensembles
                     if(tables[cnt].getGroupId() == tables[cnt+1].getGroupId() && tables[cnt].getGroupId()!=-1)
                         rightPad=0;
                 }catch(IndexOutOfBoundsException e){}
                 try{
+                    // Si la table de gauche à le même id et que cet id est différent de -1 on les colles ensembles
                     if(tables[cnt-1].getGroupId() == tables[cnt].getGroupId() && tables[cnt].getGroupId()!=-1)
                         leftPad=0;
                 }catch(IndexOutOfBoundsException e){}
@@ -204,20 +216,39 @@ public class VuePaiement extends JPanel{
 
     }
 
+    /**
+     * Ajoute le controleur aux bouton de l'interface.
+     * @param c Le controleur chargé d'écouter les boutons de la vue.
+     */
     public void addActionController(ControleurPaiement ctrl){
         this.valider.addActionListener(ctrl);
         this.annuler.addActionListener(ctrl);
         this.statButton.addActionListener(ctrl);
         this.option.addActionListener(ctrl);
     }
+
+    /**
+     * Ajoute le controleur aux cases du tableau.
+     * @param c Le controleur chargé d'écouter les cases du tableau.
+     */
     public void addMouseController(ControleurTables ctrl){
         for(int i=0; i<this.tables.length; i++){
             this.tables[i].addMouseListener(ctrl);
         }
     }
+
+    /**
+     * Récupères les tables à afficher.
+     * @return Table[] le tableau des table affichées.
+     */
     public Table[] getTables(){
         return this.tables;
     }
+
+    /**
+     * Modifie les tables à afficher.
+     * @param t le tableau de table à afficher.
+     */
     public void setTables(Table[] t){
         this.tables=t;
     }

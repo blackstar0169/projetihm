@@ -1,6 +1,11 @@
 import java.awt.*;
 import javax.swing.*;
 
+/**
+* Classe gérant la vue du login.
+* @author Anthony DUPLAT
+*/
+
 public class VueLogin extends JPanel{
     private JLabel loginLabel;
     private JButton loginButton;
@@ -59,6 +64,11 @@ public class VueLogin extends JPanel{
         this.add(loginButton, c);
 
     }
+
+    /**
+    * Récupère le bouton du login.
+    * @return JButton le bouton du login.
+    */
     public JButton getLoginButton(){
         return this.loginButton;
     }

@@ -1,12 +1,17 @@
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * Classe gérant la vue des statistiques
+ * @author Anthony DUPLAT
+ */
+
 public class VueStatistiques extends JPanel{
     Histogramme graph;
     /*
-     *<string> pour eliminer les warning.
-     *Car comme Java (et Oracle en général) c'est de la merde, cette classe utilise du code générique qui produit des warnings
-     */
+     <string> pour eliminer les warning.
+     Car comme Java (et Oracle en général) c'est de la merde, cette classe utilise du code générique qui produit des warnings
+    */
     JComboBox<String> service;
     JTextField date;
     JLabel chiffreAffaire;
@@ -71,7 +76,7 @@ public class VueStatistiques extends JPanel{
         this.add(panneauMenu, BorderLayout.NORTH);
 
 
-        //Mise en page
+        //Mise en page dans le grid layout
         c.gridy=0;
         c.gridx=0;
         c.weightx=0.3;
@@ -128,12 +133,20 @@ public class VueStatistiques extends JPanel{
 
     }
 
+    /**
+     * Ajoute les controleurs aux éléments de l'interface qui en ont besoin.
+     * @param ctrl L'ActionListener qui gère les actions des boutons. 
+     */
     public void addActionController(ControleurPaiement ctrl){
         this.payButton.addActionListener(ctrl);
         this.option.addActionListener(ctrl);
         this.sortButton.addActionListener(ctrl);
     }
 
+    /**
+     * Permet de récupérer les éléments nécéssaires (remplace getComponents() qui ne permet pas de récupérer les composants dans les JPanels fils).
+     * @return Les composants jugées utiles à être récupérés 
+     */
     public Component[] getStatComponents(){
         Component[] comp = new Component[5];
 

@@ -3,6 +3,11 @@ import java.awt.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
 
+/**
+* Classe gérant la vue des réservations.
+* @author Anthony DUPLAT
+*/
+
 public class VueReservation extends JPanel{
 
     private Table[] tables;
@@ -29,6 +34,9 @@ public class VueReservation extends JPanel{
         this.init();
     }
 
+    /**
+     * Permet d'initialiser la vue. Peut être appelée pour rafraichir la vue.
+     */
     public void init(){
         this.removeAll();
         JScrollPane scrollPane;
@@ -69,13 +77,16 @@ public class VueReservation extends JPanel{
         for(int i=0; i<2; i++){
             for(int j=0; j<10; j++){
                 rightPad = leftPad = 5;
+                //Permet d'eviter de sortitr du tableau des tables
                 try{
+                    // Si la table de droite à le même id et que cet id est différent de -1 on les colles ensembles
                     if(tables[cnt].getGroupId() == tables[cnt+1].getGroupId() && tables[cnt].getGroupId()!=-1){
                        rightPad=0;
                     }
                 }catch(IndexOutOfBoundsException e){}
 
                 try{
+                    // Si la table de gauche à le même id et que cet id est différent de -1 on les colles ensembles
                     if(tables[cnt-1].getGroupId() == tables[cnt].getGroupId() && tables[cnt].getGroupId()!=-1){
                         leftPad=0;
                     }
@@ -93,10 +104,12 @@ public class VueReservation extends JPanel{
             for(int j=0; j<5; j++){
                 rightPad = leftPad = 5;
                 try{
+                    // Si la table de droite à le même id et que cet id est différent de -1 on les colles ensembles
                     if(tables[cnt].getGroupId() == tables[cnt+1].getGroupId() && tables[cnt].getGroupId()!=-1)
                         rightPad=0;
                 }catch(IndexOutOfBoundsException e){}
                 try{
+                    // Si la table de gauche à le même id et que cet id est différent de -1 on les colles ensembles
                     if(tables[cnt-1].getGroupId() == tables[cnt].getGroupId() && tables[cnt].getGroupId()!=-1){
                         leftPad=0;
                     }
@@ -127,11 +140,16 @@ public class VueReservation extends JPanel{
         panneauPlan.add(scrollPane, c);
         this.add(panneauPlan, BorderLayout.CENTER);
 
+        // Rafraichi la vue
         revalidate();
         repaint();
 
     }
 
+    /**
+     * Ajoute les listeners aux éléments qui en ont besoin.
+     * @param c L' ActionListener qui surveillera les boutons.
+     */
     public void addActionControleur(ControleurReservation c){
         valider.addActionListener(c);
         annuler.addActionListener(c);
@@ -140,6 +158,10 @@ public class VueReservation extends JPanel{
         tableau.getSelectionModel().addListSelectionListener(new ListeReservationListener(c, this.tableau));
     }
 
+    /**
+     * Renvoi les composants pouvant être manipulés.
+     * @return Component[] contenant mes composants nécéssitants un traitement.
+     */
     public Component[] getMyComponents(){
         JComponent[] c = new JComponent[3];
         c[0] = valider;
@@ -148,21 +170,38 @@ public class VueReservation extends JPanel{
         return c;
     }
 
+    /**
+     * Supprime une ligne du tableau.
+     * @param id L'id de la ligne à supprimer.
+     */
     public void deleteRow(int id){
         this.model.removeRow(id);
         revalidate();
         repaint();
     }
 
+    /**
+     * Modifie les tables à afficher.
+     * @param t le tableau de table à afficher.
+     */
     public void setTables(Table[] t){
         this.tables=t;
     }
 
+    /**
+     * Modifie le listener du tableau.
+     * @param c Le controleur chargé d'écouter les actions sur le tableau de réservations.
+     */
     public void setTableauListener(ControleurReservation c){
         ListeReservationListener lrl = new ListeReservationListener(c, tableau);
     }
 
+    /**
+     * Modifie la liste des réservations à afficher dans le tableau.
+     * @param r La liste des réservations à afficher.
+     */
     public void setReservations(ModeleReservation[] r){
+        //Si il y a des réservations à afficher
         if(r!=null){
             Object[][] obj = new Object[r.length][5];
             for(int i=0; i<r.length; i++){
@@ -187,8 +226,6 @@ public class VueReservation extends JPanel{
             this.init();
             revalidate();
             repaint();
-
-
         }
     }
 
