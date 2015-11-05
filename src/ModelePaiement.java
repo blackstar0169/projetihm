@@ -18,7 +18,7 @@ public class ModelePaiement{
             try{
                 Class.forName("org.mariadb.jdbc.Driver");
             }catch(ClassNotFoundException ce){System.err.println("Erreur lors du chargement de la classe");}
-            connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/duplata","duplata","13060169");
+            connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/duplata","duplata","");
             declaration = connexion.createStatement();
 
             connexion2 = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/projetihm","projetihm","mhitejorp");
@@ -66,7 +66,7 @@ public class ModelePaiement{
             try{
                 Class.forName("org.mariadb.jdbc.Driver");
             }catch(ClassNotFoundException ce){System.err.println("Erreur lors du chargement de la classe");}
-            connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/duplata","duplata","13060169");
+            connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/duplata","duplata","");
             declaration = connexion.createStatement();
 
             // On calcule l'interval de recupération du CA
@@ -113,7 +113,7 @@ public class ModelePaiement{
             try{
                 Class.forName("org.mariadb.jdbc.Driver");
             }catch(ClassNotFoundException ce){System.err.println("Erreur lors du chargement de la classe");}
-            connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/duplata","duplata","13060169");
+            connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/duplata","duplata","");
             declaration = connexion.createStatement();
             String sql = "SELECT prix FROM `Paiement` WHERE service='"+s+"';";
             ResultSet r = declaration.executeQuery(sql);
