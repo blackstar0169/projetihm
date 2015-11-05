@@ -71,7 +71,7 @@ public class ModeleTable{
                 Class.forName("org.mariadb.jdbc.Driver");
             }catch(ClassNotFoundException ce){System.err.println("Erreur lors du chargement de la classe");}
             // On se connecte
-            connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/duplata","duplata","13060169");
+            connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/duplata","duplata","");
             declaration = connexion.createStatement();
 
             String sql = "SELECT * FROM `Table`";
@@ -113,7 +113,7 @@ public class ModeleTable{
             try{
                 Class.forName("org.mariadb.jdbc.Driver");
             }catch(ClassNotFoundException ce){System.err.println("Erreur lors du chargement de la classe");}
-            connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/duplata","duplata","13060169");
+            connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/duplata","duplata","");
             declaration = connexion.createStatement();
             String nom;
 
@@ -151,7 +151,7 @@ public class ModeleTable{
             try{
                 Class.forName("org.mariadb.jdbc.Driver");
             }catch(ClassNotFoundException ce){System.err.println("Erreur lors du chargement de la classe");}
-            connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/duplata","duplata","13060169");
+            connexion = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/duplata","duplata","");
             declaration = connexion.createStatement();
 
             String nom;
